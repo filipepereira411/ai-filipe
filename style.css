@@ -1,56 +1,44 @@
-<!DOCTYPE html>
-<html lang="pt-PT">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Filipe — AI Sponge Simulation</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="brand-wrap">
-            <div class="brand-badge">AI</div>
-            <div>
-                <h1>AI Filipe</h1>
-                <p class="tag">Simulação de chat inspirada em AI Sponge, com referência à origem do meme</p>
-            </div>
-        </div>
-    </header>
+/* style.css — Versão final do AI Filipe */
+:root{
+  --bg1:#061021; --bg2:#07263b; --panel:rgba(15,24,35,0.9); --muted:#9fb7c9; --accent:#76e4ff; --accent-2:#ffe082; --card:#0f1724;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6f7ff;background:linear-gradient(180deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
 
-    <main class="app">
-        <section id="chat" class="chat">
-            <div id="messages" class="messages">
-                <div class="message bot">Olá! Eu sou o AI Filipe. Posso falar sobre pepinos, Bubble Bass e a origem da referência AI Sponge.</div>
-            </div>
-            <div class="composer">
-                <input id="input" type="text" placeholder="Escreve algo..." autocomplete="off">
-                <button id="sendBtn">Enviar</button>
-            </div>
-            <div class="quick-buttons">
-                <button onclick="quick('pepino')">Pepino</button>
-                <button onclick="quick('bubble bass')">Bubble Bass</button>
-                <button onclick="quick('origem')">Origem</button>
-                <button onclick="quick('wiki')">Wiki</button>
-            </div>
-        </section>
+/* Bubbles background */
+.bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bubble{position:absolute;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0.1));border-radius:50%;opacity:0.14;filter:blur(0.6px)}
 
-        <aside class="origin">
-            <h2>Origem / Fonte</h2>
-            <p>Esta simulação usa como referência a cultura de SpongeBob e a ideia de "AI generated sponge", com a ligação ao meme e à página de fandom:</p>
-            <ul>
-                <li><a href="https://aigeneratedsponge.fandom.com/wiki/Ai_generated_sponge_Wiki" target="_blank" rel="noopener">AI generated sponge Wiki</a></li>
-                <li><a href="https://www.google.com/search?q=o+bubble+bass+cultivou+pepinos+ai+sponge" target="_blank" rel="noopener">Pesquisa sobre Bubble Bass + pepinos</a></li>
-            </ul>
-            <div class="info-box">
-                <p><strong>Nota:</strong> este projeto é uma simulação local e não usa IA externa nem backend real.</p>
-            </div>
-        </aside>
-    </main>
+.site-header{position:relative;z-index:3;padding:20px 16px}
+.brand-wrap{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand-badge{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#05121a;font-weight:800}
+.brand-text h1{margin:0;font-size:20px}
+.tag{color:var(--muted);font-size:13px;margin-top:4px}
+.main-nav a{color:var(--muted);text-decoration:none;margin-left:14px}
 
-    <footer>
-        <p>Feito por Filipe — AI Filipe ©</p>
-    </footer>
+.app{max-width:1100px;margin:16px auto;padding:12px;display:grid;grid-template-columns:1fr 320px;gap:20px;position:relative;z-index:2}
 
-    <script src="app.js"></script>
-</body>
-</html>
+.chat{background:var(--panel);border:1px solid rgba(255,255,255,0.03);border-radius:16px;padding:14px;display:flex;flex-direction:column;min-height:68vh}
+.messages{flex:1;overflow:auto;border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;flex-direction:column;gap:12px}
+.message{max-width:78%;padding:12px 14px;border-radius:14px;line-height:1.4}
+.message.bot{align-self:flex-start;background:rgba(118,228,255,0.06);border:1px solid rgba(118,228,255,0.08);color:#dff7ff}
+.message.user{align-self:flex-end;background:rgba(255,224,130,0.06);border:1px solid rgba(255,224,130,0.08);color:#fff2d6}
+
+.composer{display:flex;gap:10px;margin-top:12px}
+.composer input{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+.composer button{padding:12px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06121a;font-weight:800;cursor:pointer}
+
+.quick-buttons{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.quick-buttons button{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer}
+
+.origin{background:var(--panel);border:1px solid rgba(255,255,255,0.03);border-radius:16px;padding:16px;height:68vh;overflow:auto}
+.origin h2{margin-top:0}
+.info-box{margin-top:16px;background:rgba(154,230,180,0.06);border-radius:10px;padding:10px;color:var(--muted)}
+
+footer{max-width:1100px;margin:18px auto;padding:12px 20px;color:var(--muted);text-align:center}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(max-width:900px){.app{grid-template-columns:1fr;padding:12px}.main-nav{display:none}.origin{order:2;height:auto}}

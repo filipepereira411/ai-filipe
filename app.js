@@ -1,200 +1,100 @@
-:root {
-  --bg1: #07141d;
-  --bg2: #0e1d2b;
-  --panel: rgba(15, 24, 35, 0.9);
-  --panel-alt: rgba(21, 33, 49, 0.9);
-  --line: rgba(255,255,255,0.08);
-  --text: #edf8ff;
-  --muted: #a6c3d9;
-  --accent: #76e4ff;
-  --accent-2: #ffe082;
-  --success: #9ae6b4;
+// app.js — Versão final do AI Filipe
+const messagesEl = document.getElementById('messages');
+const inputEl = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+
+sendBtn.addEventListener('click', onSend);
+inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') onSend(); });
+
+function appendMessage(text, cls) {
+  const div = document.createElement('div');
+  div.className = 'message ' + cls;
+  div.textContent = text;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: linear-gradient(180deg, var(--bg1), var(--bg2));
-  color: var(--text);
+function onSend() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  appendMessage(text, 'user');
+  inputEl.value = '';
+  respond(text);
 }
 
-header {
-  padding: 28px 20px 10px;
+function respond(text) {
+  const thinking = document.createElement('div');
+  thinking.className = 'message bot';
+  thinking.textContent = 'AI Filipe está a pensar...';
+  messagesEl.appendChild(thinking);
+
+  setTimeout(() => {
+    if (messagesEl.contains(thinking)) messagesEl.removeChild(thinking);
+    appendMessage(generateResponse(text.toLowerCase()), 'bot');
+  }, 650 + Math.random()*500);
 }
 
-.brand-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.brand-badge {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #081521;
-  font-weight: 800;
-}
-
-header h1 {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
-.tag {
-  margin: 6px 0 0;
-  color: var(--muted);
-}
-
-.app {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px 20px 20px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.7fr);
-  gap: 20px;
-}
-
-.chat, .origin {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
-}
-
-.chat {
-  display: flex;
-  flex-direction: column;
-  min-height: 70vh;
-  padding: 16px;
-}
-
-.messages {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px;
-  flex: 1;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.message {
-  max-width: 80%;
-  padding: 12px 14px;
-  border-radius: 16px;
-  line-height: 1.5;
-}
-
-.message.bot {
-  background: rgba(118,228,255,0.12);
-  border: 1px solid rgba(118,228,255,0.2);
-  align-self: flex-start;
-}
-
-.message.user {
-  background: rgba(255,224,130,0.14);
-  border: 1px solid rgba(255,224,130,0.2);
-  align-self: flex-end;
-}
-
-.composer {
-  margin-top: 14px;
-  display: flex;
-  gap: 10px;
-}
-
-.composer input {
-  flex: 1;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,0.02);
-  color: var(--text);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 1rem;
-}
-
-.composer button,
-.quick-buttons button {
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.composer button {
-  padding: 12px 18px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #06212b;
-  font-weight: 800;
-}
-
-.quick-buttons {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.quick-buttons button {
-  padding: 9px 12px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--line);
-  color: var(--text);
-}
-
-.composer button:hover,
-.quick-buttons button:hover {
-  transform: translateY(-1px);
-}
-
-.origin {
-  padding: 18px;
-  height: fit-content;
-}
-
-.origin h2 {
-  margin-top: 0;
-}
-
-.origin ul {
-  padding-left: 18px;
-  color: var(--muted);
-}
-
-.origin a {
-  color: var(--accent-2);
-  text-decoration: none;
-}
-
-.info-box {
-  margin-top: 18px;
-  background: rgba(154,230,180,0.08);
-  border: 1px solid rgba(154,230,180,0.2);
-  border-radius: 12px;
-  padding: 12px;
-  color: var(--muted);
-}
-
-footer {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 10px 20px 30px;
-  color: var(--muted);
-  text-align: center;
-}
-
-@media (max-width: 900px) {
-  .app {
-    grid-template-columns: 1fr;
+function generateResponse(t) {
+  if (t.includes('pepino') || t.includes('pepin')) {
+    return 'Pepinilhos confirmados! 🥒 O Bubble Bass teria muito orgulho desta colheita.';
   }
+
+  if (t.includes('bubble') || t.includes('bass')) {
+    return 'Bubble Bass + pepinos = meme clássico da cultura SpongeBob. Aqui brincamos com essa ideia com carinho.';
+  }
+
+  if (t.includes('origem') || t.includes('wiki') || t.includes('fonte')) {
+    return 'A referência vem da comunidade de fandom "AI generated sponge" e dos memes que juntam Bubble Bass e pepinos. Vê as fontes na secção "Origem".';
+  }
+
+  if (t.includes('spongebob') || t.includes('sponge') || t.includes('bob')) {
+    return 'SpongeBob é a raiz desta cultura — muitos memes e fan creations surgiram a partir dos episódios clássicos.';
+  }
+
+  if (t.includes('ola') || t.includes('olá') || t.includes('oi')) {
+    return 'Olá! Eu sou o AI Filipe. Podes perguntar-me sobre personagens, memes ou pedir curiosidades.';
+  }
+
+  const fallbacks = [
+    'Humm... isso parece o tipo de ideia que Bubble Bass aprovaria.',
+    'Interessante! A internet gosta de juntar coisas improváveis em memes.',
+    'Posso ajudar com pepinos, personagens ou a origem do meme.'
+  ];
+
+  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
+
+function quick(topic) {
+  if (topic === 'pepino') inputEl.value = 'Fala-me dos pepinos';
+  else if (topic === 'bubble bass') inputEl.value = 'O que é o Bubble Bass?';
+  else if (topic === 'origem') inputEl.value = 'Qual é a origem da referência?';
+  else if (topic === 'wiki') inputEl.value = 'Mostra a fonte da wiki';
+  onSend();
+}
+
+inputEl.focus();
+
+/* Bubbles background generator */
+(function createBubbles(){
+  const container = document.querySelector('.bubbles');
+  if(!container) return;
+  const max = 18;
+  for(let i=0;i<max;i++){
+    const b = document.createElement('div');
+    b.className='bubble';
+    const size = 8 + Math.random()*48; // px
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random()*100 + '%';
+    b.style.bottom = (-20 - Math.random()*40) + 'px';
+    b.style.opacity = 0.08 + Math.random()*0.22;
+    container.appendChild(b);
+
+    const duration = 8 + Math.random()*18; // seconds
+    const delay = Math.random()*5;
+    b.animate([
+      { transform: `translateY(0) scale(${0.6+Math.random()*0.8})`, opacity: b.style.opacity },
+      { transform: `translateY(-120vh) scale(${1+Math.random()*0.6})`, opacity: 0 }
+    ], { duration: duration*1000, iterations: Infinity, easing: 'linear', delay: delay*1000 });
+  }
+})();
