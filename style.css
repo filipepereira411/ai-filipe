@@ -1,44 +1,56 @@
-:root{
-  --bg: #0b1220;
-  --card: #0f1724;
-  --accent: #ffd166;
-  --muted: #9aa4b2;
-  --glass: rgba(255,255,255,0.03);
-}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Filipe — AI Sponge Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="brand-wrap">
+            <div class="brand-badge">AI</div>
+            <div>
+                <h1>AI Filipe</h1>
+                <p class="tag">Simulação de chat inspirada em AI Sponge, com referência à origem do meme</p>
+            </div>
+        </div>
+    </header>
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg,#021; #051233);
-  color:#e6eef8;
-  -webkit-font-smoothing:antialiased;
-}
-header{padding:24px;text-align:center}
-header h1{margin:0;font-size:28px}
-header .tag{color:var(--muted);margin-top:6px}
+    <main class="app">
+        <section id="chat" class="chat">
+            <div id="messages" class="messages">
+                <div class="message bot">Olá! Eu sou o AI Filipe. Posso falar sobre pepinos, Bubble Bass e a origem da referência AI Sponge.</div>
+            </div>
+            <div class="composer">
+                <input id="input" type="text" placeholder="Escreve algo..." autocomplete="off">
+                <button id="sendBtn">Enviar</button>
+            </div>
+            <div class="quick-buttons">
+                <button onclick="quick('pepino')">Pepino</button>
+                <button onclick="quick('bubble bass')">Bubble Bass</button>
+                <button onclick="quick('origem')">Origem</button>
+                <button onclick="quick('wiki')">Wiki</button>
+            </div>
+        </section>
 
-.app{display:grid;grid-template-columns:1fr 320px;gap:20px;padding:20px;max-width:1100px;margin:0 auto}
-.chat{background:var(--card);padding:16px;border-radius:12px;display:flex;flex-direction:column;height:70vh}
-.messages{flex:1;overflow:auto;padding:8px;border-radius:8px;background:var(--glass);}
-.message{margin:8px 0;max-width:80%;padding:10px 14px;border-radius:12px}
-.message.user{background:linear-gradient(90deg,#0f1724,#15212a);align-self:flex-end}
-.message.bot{background:linear-gradient(90deg,#1b2a3a,#10202b);align-self:flex-start}
-.composer{display:flex;gap:8px;margin-top:12px}
-.composer input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
-.composer button{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:700;cursor:pointer}
-.quick-buttons{display:flex;gap:8px;margin-top:10px}
-.quick-buttons button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+        <aside class="origin">
+            <h2>Origem / Fonte</h2>
+            <p>Esta simulação usa como referência a cultura de SpongeBob e a ideia de "AI generated sponge", com a ligação ao meme e à página de fandom:</p>
+            <ul>
+                <li><a href="https://aigeneratedsponge.fandom.com/wiki/Ai_generated_sponge_Wiki" target="_blank" rel="noopener">AI generated sponge Wiki</a></li>
+                <li><a href="https://www.google.com/search?q=o+bubble+bass+cultivou+pepinos+ai+sponge" target="_blank" rel="noopener">Pesquisa sobre Bubble Bass + pepinos</a></li>
+            </ul>
+            <div class="info-box">
+                <p><strong>Nota:</strong> este projeto é uma simulação local e não usa IA externa nem backend real.</p>
+            </div>
+        </aside>
+    </main>
 
-.origin{background:var(--card);padding:16px;border-radius:12px;height:70vh;overflow:auto}
-.origin h2{margin-top:0}
-.origin a{color:var(--accent);word-break:break-all}
-.small{color:var(--muted);font-size:13px}
+    <footer>
+        <p>Feito por Filipe — AI Filipe ©</p>
+    </footer>
 
-footer{text-align:center;padding:14px;color:var(--muted)}
-
-@media(max-width:900px){
-  .app{grid-template-columns:1fr;}
-  .origin{order:2}
-}
+    <script src="app.js"></script>
+</body>
+</html>
