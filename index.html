@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Filipe — Simulação AI Sponge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>AI Filipe</h1>
+        <p class="tag">Simulação divertida inspirada em "AI Sponge" — conversa local no browser</p>
+    </header>
+
+    <main class="app">
+        <section id="chat" class="chat">
+            <div id="messages" class="messages"></div>
+            <div class="composer">
+                <input id="input" type="text" placeholder="Escreve algo..." autocomplete="off">
+                <button id="sendBtn">Enviar</button>
+            </div>
+            <div class="quick-buttons">
+                <button onclick="quick('pepino')">Pepino</button>
+                <button onclick="quick('bubble bass')">Bubble Bass</button>
+                <button onclick="quick('origem')">Origem</button>
+            </div>
+        </section>
+
+        <aside class="origin">
+            <h2>Origem / Referências</h2>
+            <p>Referência de pesquisa usada:</p>
+            <a href="https://www.google.com/search?q=o+bubble+bass+cultivou+pepinos+ai+sponge" target="_blank" rel="noopener">Pesquisa sobre "Bubble Bass cultivou pepinos"</a>
+            <p class="small">Este projeto é uma simulação local e não usa modelos de IA externos.</p>
+        </aside>
+    </main>
+
+    <footer>
+        <p>Feito por Filipe — AI Filipe ©</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
