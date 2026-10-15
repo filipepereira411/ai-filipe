@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Personagens — AI Filipe</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .chars { max-width:1100px;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding:10px }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.04)}
+    .card h3{margin:0 0 6px}
+    .card p{margin:6px 0;color:var(--muted)}
+    .card .tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+    .toplink{max-width:1100px;margin:16px auto;padding:0 10px}
+  </style>
+</head>
+<body>
+  <div class="toplink"><a href="/">← Voltar ao AI Filipe</a></div>
+  <main class="chars" id="chars"></main>
+  <script>
+    async function load(){
+      try{
+        const res = await fetch('/data/characters.json');
+        const data = await res.json();
+        const root = document.getElementById('chars');
+        data.forEach(c=>{
+          const el = document.createElement('article');
+          el.className='card';
+          el.innerHTML = `<h3>${c.name}</h3><p>${c.description}</p><a href="${c.wiki}" target="_blank" rel="noopener">Fonte / Wiki</a>`;
+          const tags = document.createElement('div');tags.className='tags';
+          c.notable_traits.forEach(t=>{const s=document.createElement('div');s.className='tag';s.textContent=t;tags.appendChild(s)});
+          el.appendChild(tags);
+          root.appendChild(el);
+        })
+      }catch(e){console.error(e)}
+    }
+    load();
+  </script>
+</body>
+</html>

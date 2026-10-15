@@ -1,0 +1,66 @@
+[
+  {
+    "id": "spongebob",
+    "name": "SpongeBob SquarePants",
+    "role": "Protagonista",
+    "description": "Uma esponja otimista e entusiasta; trabalha como cozinheiro no Krusty Krab e é o centro do universo SpongeBob.",
+    "notable_traits": ["otimista", "trabalhador", "ingénuo"],
+    "wiki": "https://spongebob.fandom.com/wiki/SpongeBob_SquarePants"
+  },
+  {
+    "id": "patrick",
+    "name": "Patrick Star",
+    "role": "Melhor amigo",
+    "description": "Uma estrela-do-mar tranquila e muito fiel; frequentemente envolve-se em confusões com SpongeBob.",
+    "notable_traits": ["leal", "bobo", "descontraído"],
+    "wiki": "https://spongebob.fandom.com/wiki/Patrick_Star"
+  },
+  {
+    "id": "squidward",
+    "name": "Squidward Tentacles",
+    "role": "Vizinho / Colega",
+    "description": "Vizinho rabugento de SpongeBob, toca clarinete e trabalha com ele no Krusty Krab; prefere paz e sossego.",
+    "notable_traits": ["rabugento", "artista frustrado", "sarcastico"],
+    "wiki": "https://spongebob.fandom.com/wiki/Squidward_Tentacles"
+  },
+  {
+    "id": "bubble_bass",
+    "name": "Bubble Bass",
+    "role": "Personagem secundário / meme",
+    "description": "Conhecido por episódios onde interage com SpongeBob e por memes envolvendo "pepinos"; aqui serve como referência cultural.",
+    "notable_traits": ["meme", "gourmet exigente"],
+    "wiki": "https://spongebob.fandom.com/wiki/Bubble_Bass"
+  },
+  {
+    "id": "mr_krabs",
+    "name": "Eugene H. Krabs (Mr. Krabs)",
+    "role": "Dono do Krusty Krab",
+    "description": "Obsessivo por dinheiro, dono do restaurante onde SpongeBob trabalha; frequentemente alvo de planos de Plankton.",
+    "notable_traits": ["materialista", "protetor", "empreendedor"],
+    "wiki": "https://spongebob.fandom.com/wiki/Eugene_H._Krabs"
+  },
+  {
+    "id": "sandy",
+    "name": "Sandy Cheeks",
+    "role": "Amiga / Cientista",
+    "description": "Esquilo do Texas que vive em Bikini Bottom dentro de uma cúpula; é cientista e expert em artes marciais.",
+    "notable_traits": ["inteligente", "atlética", "inventora"],
+    "wiki": "https://spongebob.fandom.com/wiki/Sandy_Cheeks"
+  },
+  {
+    "id": "plankton",
+    "name": "Sheldon J. Plankton",
+    "role": "Antagonista",
+    "description": "Proprietário do Chum Bucket; tenta frequentemente roubar a fórmula secreta do Krusty Krab.",
+    "notable_traits": ["ambicioso", "cientista maluco", "ardiloso"],
+    "wiki": "https://spongebob.fandom.com/wiki/Plankton"
+  },
+  {
+    "id": "ai_generated_sponge",
+    "name": "AI Generated Sponge (fandom)",
+    "role": "Contexto / Referência",
+    "description": "Página de fandom que explora conceitos, memes e criações comunitárias em torno da ideia de esponjas geradas por IA; usada como referência para este projeto.",
+    "notable_traits": ["fan-made", "meta", "memes"],
+    "wiki": "https://aigeneratedsponge.fandom.com/wiki/Ai_generated_sponge_Wiki"
+  }
+]
