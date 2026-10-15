@@ -1,57 +1,156 @@
 <!doctype html>
 <html lang="pt-PT">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Personagens — AI Filipe</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personagens — AI Filipe (Standalone)</title>
+  <style>
+    :root{
+      --bg1:#061021; --bg2:#07263b; --card:#0f1724; --muted:#9fb7c9; --accent:#76e4ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6f7ff;background:linear-gradient(180deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1100px;margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .badge{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ffe082);color:#041417;font-weight:800;font-size:18px}
+    h1{margin:0;font-size:20px}
+    .tag{color:var(--muted);font-size:13px;margin-top:6px}
+    .chars{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.04)}
+    .card h3{margin:0 0 6px}
+    .card p{margin:6px 0;color:var(--muted);font-size:14px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag-pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:10px;font-size:13px;color:var(--muted)}
+    .actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .btn{padding:8px 10px;border-radius:10px;border:none;background:var(--accent);color:#041417;font-weight:700;cursor:pointer;text-decoration:none}
+    .link{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:10px;text-decoration:none}
+    footer{color:var(--muted);margin-top:22px;font-size:13px}
+    @media(max-width:600px){.badge{width:48px;height:48px}}
+  </style>
 </head>
 <body>
-  <div class="bubbles" aria-hidden="true"></div>
-  <header class="site-header">
-    <div class="brand-wrap">
-      <a class="brand" href="/">
-        <div class="brand-badge">AI</div>
-        <div class="brand-text"><h1>AI Filipe</h1><p class="tag">Personagens</p></div>
-      </a>
-      <nav class="main-nav">
-        <a href="/">Chat</a>
-        <a href="/characters.html">Personagens</a>
-        <a href="/index.html#origem">Origem / Fonte</a>
-      </nav>
-    </div>
-  </header>
+  <div class="wrap">
+    <header>
+      <div class="badge">AI</div>
+      <div>
+        <h1>Personagens — AI Filipe</h1>
+        <div class="tag">Lista standalone das personagens (AI Sponge / SpongeBob fandom)</div>
+      </div>
+    </header>
 
-  <main class="app" style="grid-template-columns:1fr;">
-    <section style="padding:16px;">
-      <h2>Personagens</h2>
-      <div class="chars" id="chars"></div>
-      <div style="max-width:1100px;margin:16px auto;color:var(--muted);padding:0 12px">Voltar ao <a href="/">chat</a>.</div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Feito por Filipe — AI Filipe ©</p>
-  </footer>
+    <main>
+      <div id="chars" class="chars" aria-live="polite"></div>
+      <footer>
+        <p>Fonte/Referências incluídas nos cartões. Abre este ficheiro diretamente no browser (file://) — sem servidor necessário.</p>
+      </footer>
+    </main>
+  </div>
 
   <script>
-    async function load(){
-      try{
-        const res = await fetch('/data/characters.json');
-        const data = await res.json();
-        const root = document.getElementById('chars');
-        data.forEach(c=>{
-          const el = document.createElement('article');
-          el.className='card';
-          el.innerHTML = `<h3>${c.name}</h3><p>${c.description}</p><a href="${c.wiki}" target="_blank" rel="noopener">Fonte / Wiki</a>`;
-          const tags = document.createElement('div');tags.className='tags';
-          c.notable_traits.forEach(t=>{const s=document.createElement('div');s.className='tag';s.textContent=t;tags.appendChild(s)});
-          el.appendChild(tags);
-          root.appendChild(el);
-        })
-      }catch(e){console.error(e)}
-    }
-    load();
+    // Dados embebidos — personagens inspiradas em AI Sponge / SpongeBob fandom
+    const characters = [
+      {
+        id: "spongebob",
+        name: "SpongeBob SquarePants",
+        role: "Protagonista",
+        description: "Uma esponja otimista e entusiasta; trabalha como cozinheiro no Krusty Krab e é o centro do universo SpongeBob.",
+        notable_traits: ["otimista","trabalhador","ingénuo"],
+        wiki: "https://spongebob.fandom.com/wiki/SpongeBob_SquarePants"
+      },
+      {
+        id: "patrick",
+        name: "Patrick Star",
+        role: "Melhor amigo",
+        description: "Uma estrela-do-mar tranquila e muito fiel; frequentemente envolve-se em confusões com SpongeBob.",
+        notable_traits: ["leal","bobo","descontraído"],
+        wiki: "https://spongebob.fandom.com/wiki/Patrick_Star"
+      },
+      {
+        id: "squidward",
+        name: "Squidward Tentacles",
+        role: "Vizinho / Colega",
+        description: "Vizinho rabugento de SpongeBob, toca clarinete e trabalha com ele no Krusty Krab; prefere paz e sossego.",
+        notable_traits: ["rabugento","artista frustrado","sarcastico"],
+        wiki: "https://spongebob.fandom.com/wiki/Squidward_Tentacles"
+      },
+      {
+        id: "bubble_bass",
+        name: "Bubble Bass",
+        role: "Personagem secundário / meme",
+        description: "Conhecido por episódios onde interage com SpongeBob e por memes envolvendo pepinos; aqui serve como referência cultural.",
+        notable_traits: ["meme","gourmet exigente"],
+        wiki: "https://spongebob.fandom.com/wiki/Bubble_Bass"
+      },
+      {
+        id: "mr_krabs",
+        name: "Eugene H. Krabs (Mr. Krabs)",
+        role: "Dono do Krusty Krab",
+        description: "Obsessivo por dinheiro, dono do restaurante onde SpongeBob trabalha; frequentemente alvo de planos de Plankton.",
+        notable_traits: ["materialista","protetor","empreendedor"],
+        wiki: "https://spongebob.fandom.com/wiki/Eugene_H._Krabs"
+      },
+      {
+        id: "sandy",
+        name: "Sandy Cheeks",
+        role: "Amiga / Cientista",
+        description: "Esquilo do Texas que vive em Bikini Bottom dentro de uma cúpula; é cientista e expert em artes marciais.",
+        notable_traits: ["inteligente","atlética","inventora"],
+        wiki: "https://spongebob.fandom.com/wiki/Sandy_Cheeks"
+      },
+      {
+        id: "plankton",
+        name: "Sheldon J. Plankton",
+        role: "Antagonista",
+        description: "Proprietário do Chum Bucket; tenta frequentemente roubar a fórmula secreta do Krusty Krab.",
+        notable_traits: ["ambicioso","cientista maluco","ardiloso"],
+        wiki: "https://spongebob.fandom.com/wiki/Plankton"
+      },
+      {
+        id: "ai_generated_sponge",
+        name: "AI Generated Sponge (fandom)",
+        role: "Contexto / Referência",
+        description: "Página de fandom que explora conceitos, memes e criações comunitárias em torno da ideia de esponjas geradas por IA; usada como referência para este projeto.",
+        notable_traits: ["fan-made","meta","memes"],
+        wiki: "https://aigeneratedsponge.fandom.com/wiki/Ai_generated_sponge_Wiki"
+      }
+    ];
+
+    // Renderização
+    const root = document.getElementById('chars');
+    characters.forEach(c => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${c.name}</h3>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px"><strong>${c.role}</strong></div>
+        <p>${c.description}</p>
+        <div class="tags"></div>
+        <div class="actions">
+          <a class="link" href="${c.wiki}" target="_blank" rel="noopener">Fonte / Wiki</a>
+          <button class="btn" data-id="${c.id}">Copiar nome</button>
+        </div>
+      `;
+      const tagsEl = card.querySelector('.tags');
+      c.notable_traits.forEach(t => {
+        const tEl = document.createElement('div');
+        tEl.className = 'tag-pill';
+        tEl.textContent = t;
+        tagsEl.appendChild(tEl);
+      });
+
+      // botão copiar
+      const copyBtn = card.querySelector('.btn');
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard?.writeText(c.name).then(()=> {
+          copyBtn.textContent = 'Copiado!';
+          setTimeout(()=> copyBtn.textContent = 'Copiar nome', 1000);
+        }).catch(()=> {
+          alert('Não foi possível copiar (permissão negada).');
+        });
+      });
+
+      root.appendChild(card);
+    });
   </script>
 </body>
 </html>
