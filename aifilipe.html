@@ -1,0 +1,93 @@
+<!doctype html> 
+<html lang="pt-PT"> 
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width,initial-scale=1"> 
+<title>Agenda — AI Filipe</title> 
+<!-- Incluir a SDK Oficial do EmailJS -->
+<script src="https://jsdelivr.net"></script>
+<style> 
+:root{ 
+--bg1:#061021; 
+--bg2:#07263b; 
+--panel:rgba(15,24,35,0.9); 
+--muted:#9fb7c9; 
+--accent:#76e4ff; 
+--accent-2:#ffe082; 
+--card:#0f1724; 
+--danger:#ff7b7b; 
+--success:#7ae9b3; 
+--text:#e6f7ff; 
+--line:rgba(255,255,255,0.08); 
+} 
+* { box-sizing: border-box; } 
+html, body { height: 100%; } 
+body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--bg1), var(--bg2)); -webkit-font-smoothing: antialiased; } 
+.bubbles{ position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; } 
+.bubble{ position: absolute; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0.1)); border-radius: 50%; opacity: 0.14; filter: blur(0.7px); } 
+.site-header{ position: relative; z-index: 3; padding: 20px 16px; } 
+.brand-wrap{ max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; } 
+.brand{ display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; } 
+.brand-badge{ width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #05121a; font-weight: 800; } 
+.brand-text h1{ margin: 0; font-size: 20px; } 
+.tag{ color: var(--muted); font-size: 13px; margin-top: 4px; } 
+.main-nav a{ color: var(--muted); text-decoration: none; margin-left: 14px; font-size: 14px; } 
+.main-nav a:hover { color: var(--text); } 
+.agenda-shell { position: relative; z-index: 2; max-width: 1180px; margin: 20px auto; padding: 0 16px 40px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 22px; } 
+.panel, .summary-card, .list-box { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.18); } 
+.panel { padding: 20px; } 
+.panel-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; } 
+.eyebrow { margin: 0 0 6px; color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; } 
+h2, h3, h4 { margin: 0; } 
+.primary-btn, .secondary-btn, .ghost-btn { border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; cursor: pointer; transition: transform 0.15s ease; } 
+.primary-btn:hover, .secondary-btn:hover, .ghost-btn:hover { transform: translateY(-1px); } 
+.primary-btn { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06121a; } 
+.secondary-btn { background: rgba(255,255,255,0.04); color: var(--text); border: 1px solid var(--line); } 
+.ghost-btn { background: transparent; color: var(--muted); border: 1px solid var(--line); } 
+.agenda-form { display: grid; gap: 16px; } 
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; } 
+label { display: grid; gap: 8px; color: var(--muted); font-size: 14px; } 
+input, select, textarea { width: 100%; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.02); color: var(--text); padding: 12px 14px; font: inherit; } 
+textarea { min-height: 88px; resize: vertical; } 
+.summary-col { display: grid; gap: 18px; } 
+.summary-card { padding: 20px; } 
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 16px; } 
+.stats div { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 12px 10px; text-align: center; } 
+.stats strong { display: block; font-size: 1.6rem; } 
+.stats span { color: var(--muted); font-size: 12px; } 
+.list-box { grid-column: 1 / -1; padding: 18px 20px 12px; } 
+.list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; } 
+.filter-controls { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; margin-top: 10px; } 
+.search-input { max-width: 300px; padding: 8px 12px; font-size: 14px; } 
+.filter-btn { background: rgba(255,255,255,0.03); color: var(--muted); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; } 
+.filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); } 
+.filter-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06121a; border-color: transparent; } 
+.agenda-list { display: grid; gap: 12px; } 
+.task-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; background: rgba(255,255,255,0.025); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; } 
+.task-main { display: grid; gap: 8px; } 
+.task-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; } 
+.badge { display: inline-flex; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid transparent; } 
+.badge.alta { background: rgba(255, 123, 123, 0.12); color: #ffd1d1; border-color: rgba(255,123,123,0.25); } 
+.badge.media { background: rgba(255,224,130,0.12); color: #ffeec5; border-color: rgba(255,224,130,0.25); } 
+.badge.baixa { background: rgba(122,233,179,0.12); color: #d8fdea; border-color: rgba(122,233,179,0.25); } 
+.badge.category-tag { background: rgba(118, 228, 255, 0.1); color: var(--accent); border-color: rgba(118, 228, 255, 0.2); font-size: 10px; text-transform: capitalize; } 
+.task-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; } 
+.notify-select { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font-size: 13px; font-weight: 700; cursor: pointer; } 
+.notify-select:hover { background: rgba(255,255,255,0.1); } 
+.task-item.done .task-title { text-decoration: line-through; opacity: 0.7; } 
+.task-item.done { border-color: rgba(122,233,179,0.2); } 
+.empty { color: var(--muted); padding: 18px 8px; } 
+footer { max-width: 1180px; margin: 0 auto; padding: 8px 20px 26px; color: var(--muted); text-align: center; } 
+@media (max-width: 900px) { .agenda-shell { grid-template-columns: 1fr; } .main-nav { display: none; } .form-grid { grid-template-columns: 1fr; } .search-input { max-width: 100%; } } 
+</style> 
+</head> 
+<body> 
+<div class="bubbles" aria-hidden="true"></div> 
+<header class="site-header"> 
+<div class="brand-wrap"> 
+<a class="brand" href="index.html"> 
+<div class="brand-badge">AI</div> 
+<div class="brand-text"> 
+<h1>AI Filipe</h1> 
+<p class="tag">Agenda para reagendar e avisar pessoas</p> </div> </a> <nav class="main-nav"> <a href="index.html">Chat</a> <a href="agenda.html">Agenda</a> <a href="characters.html">Personagens</a> <a href="index.html#origem">Origem / Fonte</a> </nav> </div> </header> <main class="agenda-shell"> <section class="panel"> <div class="panel-header"> <div> <p class="eyebrow">Agenda</p> <h2>Nova tarefa</h2> </div> <select id="notifyAllSelect" class="notify-select"> <option value="" disabled selected>Avisar todos via...</option> <option value="wa-web">WhatsApp Web</option> <option value="wa-api">WhatsApp API</option> <option value="mail-direct">E-mail Direto (Auto)</option> <option value="clipboard">Copiar bloco</option> </select> </div> <form id="agendaForm" class="agenda-form"> <div> <label> <span>Título</span> <input id="title" type="text" placeholder="Ex.: Reunião de equipa" required> </label> </div> <div class="form-grid"> <label> <span>Data</span> <input id="date" type="date" required> </label> <label> <span>Hora</span> <input id="time" type="time"> </label> <label> <span>Prioridade</span> <select id="priority"> <option value="baixa">Baixa</option> <option value="media" selected>Média</option> <option value="alta">Alta</option> </select> </label> <label> <span>Categoria</span> <select id="category"> <option value="trabalho">Trabalho</option> <option value="pessoal">Pessoal</option> <option value="estudo">Estudo</option> <option value="outro">Outro</option> </select> </label> </div> <label> <span>Notes</span> <textarea id="notes" placeholder="Detalhes, local, links, avisos..."></textarea> </label> <div class="task-actions"> <button class="primary-btn" type="submit">Guardar</button> <button id="copySummaryBtn" class="secondary-btn" type="button">Copiar resumo</button> </div> </form> </section> <aside class="summary-col"> <div class="summary-card"> <p class="eyebrow">Resumo</p> <h3 id="summaryTitle">Próximos eventos</h3> <div class="stats"> <div> <strong id="totalCount">0</strong> <span>Total</span> </div> <div> <strong id="pendingCount">0</strong> <span>Pendentes</span> </div> <div> <strong id="doneCount">0</strong> <span>Feitos</span> </div> </div> </div> <div class="summary-card"> <p class="eyebrow">Próximo</p> <h4 id="nextTask">Sem tarefas</h4> </div> </aside> <section class="list-box"> <div class="list-header"> <div> <h3>Lista de tarefas</h3> <div class="filter-controls"> <button class="filter-btn active" data-filter="all">Todas</button> <button class="filter-btn" data-filter="trabalho">Trabalho</button> <button class="filter-btn" data-filter="pessoal">Pessoal</button> <button class="filter-btn" data-filter="estudo">Estudo</button> <button class="filter-btn" data-filter="outro">Outro</button> </div> </div> <input type="search" id="searchTask" class="search-input" placeholder="Pesquisar por título ou notas..."> </div> <div id="agendaList" class="agenda-list" aria-live="polite"></div> </section> </main> <footer> <p>Feito por Filipe — agenda local para avisar pessoas por canais alternativos.</p> </footer> <script> 
+// CONFIGURAÇÃO DO EMAILJS
